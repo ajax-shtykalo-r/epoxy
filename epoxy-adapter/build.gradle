@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
-apply plugin: "com.vanniktech.maven.publish"
+
 
 android {
   compileSdkVersion rootProject.COMPILE_SDK_VERSION
@@ -21,6 +21,7 @@ android {
             logEpoxyTimings: "true"
         ]
   }
+  namespace 'com.airbnb.viewmodeladapter'
 }
 
 configurations.all { strategy ->

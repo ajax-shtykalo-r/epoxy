@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: "com.vanniktech.maven.publish"
+
 
 android {
     compileSdkVersion rootProject.COMPILE_SDK_VERSION
@@ -11,6 +11,7 @@ android {
         targetSdkVersion rootProject.TARGET_SDK_VERSION
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    namespace 'com.airbnb.epoxy.preloader'
 }
 
 dependencies {

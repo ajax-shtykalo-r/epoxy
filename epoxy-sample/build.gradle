@@ -23,6 +23,7 @@ android {
     dataBinding {
         enabled = true
     }
+    namespace 'com.airbnb.epoxy.sample'
 }
 
 kapt {

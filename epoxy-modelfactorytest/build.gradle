@@ -14,6 +14,7 @@ android {
   }
 
   testOptions.unitTests.includeAndroidResources = true
+  namespace 'com.airbnb.epoxy.modelfactorytest'
 }
 
 configurations.all { strategy ->
@@ -53,8 +54,8 @@ dependencies {
   testImplementation rootProject.deps.googleTestingCompile
   testImplementation rootProject.deps.junit
   testImplementation rootProject.deps.robolectric
-  testImplementation files(getRuntimeJar())
-  testImplementation files(Jvm.current().getToolsJar())
+//  testImplementation files(getRuntimeJar())
+//  testImplementation files(Jvm.current().getToolsJar())
 }
 
 static def getRuntimeJar() {

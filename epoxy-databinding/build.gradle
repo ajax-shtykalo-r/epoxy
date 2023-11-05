@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: "com.vanniktech.maven.publish"
+
 
 android {
   compileSdkVersion rootProject.COMPILE_SDK_VERSION
@@ -14,6 +14,7 @@ android {
     // Ignoring it for now until we can figure out how to fix it.
     enabled = true
   }
+  namespace 'com.airbnb.epoxy.databinding'
 }
 
 configurations.all { strategy ->

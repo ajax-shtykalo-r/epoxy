@@ -2,7 +2,6 @@ import org.gradle.internal.jvm.Jvm
 
 apply plugin: 'org.jetbrains.kotlin.jvm'
 apply plugin: 'org.jetbrains.kotlin.kapt'
-apply plugin: "com.vanniktech.maven.publish"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -12,6 +11,17 @@ compileKotlin {
         jvmTarget = "1.8"
     }
 }
+allprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+}
+//packagingOptions {
+//    resources.excludes.add("META-INF/*")
+//    exclude 'git.properties'
+//}
 
 configurations.all { strategy ->
     strategy.resolutionStrategy.force rootProject.deps.assertj, rootProject.deps.googleTestingCompile
@@ -26,7 +36,7 @@ dependencies {
     implementation rootProject.deps.kotlinCoroutines
 
     /** Provides the sun javac tools for looking up the R class trees. */
-    compileOnly files(Jvm.current().getToolsJar())
+//    compileOnly files(Jvm.current().getToolsJar())
     // Allow us to use android support library annotations (@LayoutRes) in this project.
     // Since this isn't an android module normally we couldn't access them otherwise.
     compileOnly rootProject.deps.androidRuntime
@@ -36,4 +46,16 @@ dependencies {
     kapt deps.incapProcessor
 
     testImplementation rootProject.deps.junit
+}
+
+tasks.register('uberJar', Jar) {
+    archiveClassifier = 'uber'
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from sourceSets.main.output
+
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
 }
